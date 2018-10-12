@@ -4,6 +4,10 @@
 
 https://french-navigator-vue.netlify.com/
 
+## Starter template
+
+- [Vuetify Simple HTML](https://github.com/vuetifyjs/simple)
+
 ## Technologies
 
 - [Vue](https://vuejs.org/)
