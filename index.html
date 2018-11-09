@@ -1,141 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <meta charset="utf-8">
-    <meta
-      http-equiv="X-UA-Compatible"
-      content="IE=edge"
-    >
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0"
-    >
-    <title>French address navigator</title>
-    <link
-      href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
-      rel="stylesheet"
-      type="text/css"
-    >
-    <link
-      href="https://unpkg.com/vuetify/dist/vuetify.min.css"
-      rel="stylesheet"
-      type="text/css"
-    >
-  </head>
+	<head>
+		<meta charset="utf-8">
+		<meta
+		 http-equiv="X-UA-Compatible"
+		 content="IE=edge"
+		>
+		<meta
+		 name="viewport"
+		 content="width=device-width, initial-scale=1.0"
+		>
+		<title>French address navigator</title>
+		<link
+		 href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
+		 rel="stylesheet"
+		 type="text/css"
+		>
+		<link
+		 href="https://unpkg.com/vuetify/dist/vuetify.min.css"
+		 rel="stylesheet"
+		 type="text/css"
+		>
+	</head>
 
-  <body>
-    <div id="app">
-      <v-app>
-        <v-toolbar
-          color="indigo"
-          dark
-          fixed
-          app
-        >
-          <v-toolbar-title>French addresses navigator</v-toolbar-title>
-        </v-toolbar>
-        <v-content>
-          <v-container
-            grid-list-sm
-            fluid
-          >
-            <v-layout
-              row
-              justify-center
-            >
-              <v-flex
-                xs12
-                sm8
-                md6
-              >
-                <v-text-field
-                  label="Address"
-                  placeholder="Type the address"
-                  append-icon="search"
-                  v-model.trim="address"
-                  :loading="addressLoading"
-                  solo
-                >
-                </v-text-field>
-              </v-flex>
-            </v-layout>
-            <v-layout
-              row
-              justify-center
-              v-resize="onResize"
-            >
-              <v-flex
-                xs12
-                sm8
-                md6
-                ref="addressTableRow"
-              >
-                <v-data-table
-                  class="elevation-1"
-                  :headers="addressHeaders"
-                  :items="searchedAddresses"
-                  hide-actions
-                >
-                  <template
-                    slot="items"
-                    slot-scope="props"
-                  >
-                    <td>{{ props.item.properties.city }}</td>
-                    <td>{{ props.item.properties.name }}</td>
-                  </template>
-                </v-data-table>
-              </v-flex>
-            </v-layout>
-            <v-layout
-              row
-              justify-center
-            >
-              <v-flex
-                xs12
-                sm8
-                md6
-              >
-                <div
-                  id="map"
-                  class="elevation-1"
-                  :style="{ width: mapSize + 'px', height: mapSize + 'px' }"
-                ></div>
-              </v-flex>
-            </v-layout>
-          </v-container>
-          <v-footer
-            color="indigo"
-            app
-          >
-            <span class="white--text mx-2">Made with love by Yuriy &copy; 2018 - Eternity</span>
-          </v-footer>
-        </v-content>
-      </v-app>
-    </div>
+	<body>
+		<div id="app">
+			<v-app>
+				<v-toolbar
+				 color="indigo"
+				 dark
+				 fixed
+				 app
+				>
+					<v-toolbar-title>French addresses navigator</v-toolbar-title>
+				</v-toolbar>
+				<v-content>
+					<v-container
+					 grid-list-sm
+					 fluid
+					>
+						<v-layout
+						 row
+						 justify-center
+						>
+							<v-flex
+							 xs12
+							 sm8
+							 md6
+							>
+								<v-text-field
+								 label="Address"
+								 placeholder="Type the address"
+								 append-icon="search"
+								 v-model.trim="address"
+								 :loading="addressLoading"
+								 solo
+								>
+								</v-text-field>
+							</v-flex>
+						</v-layout>
+						<v-layout
+						 row
+						 justify-center
+						 v-resize="onResize"
+						>
+							<v-flex
+							 xs12
+							 sm8
+							 md6
+							 ref="addressTableRow"
+							>
+								<v-data-table
+								 class="elevation-1"
+								 :headers="addressHeaders"
+								 :items="searchedAddresses"
+								 hide-actions
+								>
+									<template
+									 slot="items"
+									 slot-scope="props"
+									>
+										<td>{{ props.item.properties.city }}</td>
+										<td>{{ props.item.properties.name }}</td>
+									</template>
+								</v-data-table>
+							</v-flex>
+						</v-layout>
+						<v-layout
+						 row
+						 justify-center
+						>
+							<v-flex
+							 xs12
+							 sm8
+							 md6
+							>
+								<div
+								 id="map"
+								 class="elevation-1"
+								 :style="{ height: mapSize + 'px' }"
+								></div>
+							</v-flex>
+						</v-layout>
+					</v-container>
+					<v-footer
+					 color="indigo"
+					 app
+					>
+						<span class="white--text mx-2">Made with love by Yuriy &copy; 2018 - Eternity</span>
+					</v-footer>
+				</v-content>
+			</v-app>
+		</div>
 
-    <script
-      src="https://unpkg.com/vue/dist/vue.min.js"
-      defer
-    ></script>
-    <script
-      src="https://unpkg.com/vuetify/dist/vuetify.min.js"
-      defer
-    ></script>
-    <script
-      src="https://unpkg.com/axios/dist/axios.min.js"
-      defer
-    ></script>
-    <script
-      src="https://unpkg.com/underscore@1.8.3"
-      defer
-    ></script>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFh-jqQ8z_YHhtAARbG0nVIZCGyGa_jN4"
-      defer
-    ></script>
-    <script>
-      window.addEventListener("load", onPageLoad, false);
+		<script
+		 src="https://unpkg.com/vue/dist/vue.min.js"
+		 defer
+		>
+		</script>
+		<script
+		 src="https://unpkg.com/vuetify/dist/vuetify.min.js"
+		 defer
+		>
+
+		</script>
+		<script
+		 src="https://unpkg.com/axios/dist/axios.min.js"
+		 defer
+		>
+
+		</script>
+		<script
+		 src="https://unpkg.com/underscore@1.8.3"
+		 defer
+		>
+
+		</script>
+		<script
+		 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFh-jqQ8z_YHhtAARbG0nVIZCGyGa_jN4"
+		 defer
+		>
+
+		</script>
+		<script>
+			window.addEventListener("load", onPageLoad, false);
 
       function onPageLoad() {
         const app = new Vue({
@@ -213,7 +222,7 @@
           }
         });
       }
-    </script>
-  </body>
+		</script>
+	</body>
 
 </html>
